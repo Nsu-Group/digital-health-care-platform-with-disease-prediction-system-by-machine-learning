@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} - Medical Store{% endblock %}{% block content %}
+
+<section class="page-title bg-1">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="block text-center">
+					<span class="text-white">Medical Store</span>
+					<h1 class="text-capitalize mb-5 text-lg">Find Pharmacy Near you</h1>
+
+					<!-- <ul class="list-inline breadcumb-nav">
+                      <li class="list-inline-item"><a href="index.html" class="text-white">Home</a></li>
+                      <li class="list-inline-item"><span class="text-white">/</span></li>
+                      <li class="list-inline-item"><a href="#" class="text-white-50">Our blog</a></li>
+                    </ul> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section blog-wrap">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-6 text-center">
+				<div class="section-title">
+					<input type="text" class="form-control" placeholder="Search for a store" id="store_search"
+						onkeyup="searchStore()">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="row">
+
+					{% if not stores %}
+					<h3 class="mx-3">No stores found</h3>
+					{% endif %}
+
+					{% for store in stores %}
+					<div class="col-lg-3 col-sm-6 col-md-6 mb-4 mb-5">
+						<div class="blog-item">
+							<div class="blog-thumb">
+								{% if store.image %}
+								<img src="{{ store.image.url }}" alt="{{ post.title }}" class="img-fluid" style="height: 180px;">
+
+								{% else %}
+								<img src="{% static 'images/placeholders/article-image-placeholder.jpg' %}"
+									alt="{{ post.title }}" class="img-fluid" style="height: 180px;">
+								{% endif %}
+							</div>
+
+							<div class="blog-item-content">
+								<h3 class="mt-3 mb-3">
+									<a href="#">
+										{{ store.name }}
+									</a>
+								</h3>
+								<div class="blog-item-meta mb-3 mt-4">
+									<span class="text-capitalize">
+										<i class="fa fa-map-marker mr-2"></i> {{ store.address }}
+									</span>
+								</div>
+
+								<a href="{% url 'store-detail' store.id %}"
+									class="btn btn-main btn-icon btn-round-full">
+									View Details <i class="icofont-simple-right ml-2"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+
+				</div>
+			</div>
+		</div>
+
+		{% if stores.has_other_pages %}
+		<div class="row mt-5">
+			<div class="col-lg-8">
+				<nav class="pagination py-2 d-inline-block">
+					<div class="nav-links">
+						{% if stores.has_previous %}
+						<a class="page-numbers" href="?page={{ stores.previous_page_number }}">
+							<i class="icofont-thin-double-left"></i>
+						</a>
+						{% endif %}
+
+						{% for i in stores.paginator.page_range %}
+						{% if stores.number == i %}
+						<span aria-current="page" class="page-numbers current">{{ i }}</span>
+						{% else %}
+						<a class="page-numbers" href="?page={{ i }}">{{ i }}</a>
+						{% endif %}
+						{% endfor %}
+
+						{% if stores.has_next %}
+						<li>
+							<a class="page-numbers" href="?page={{ stores.next_page_number }}">
+								<i class="icofont-thin-double-right"></i>
+							</a>
+						</li>
+						{% endif %}
+					</div>
+				</nav>
+			</div>
+		</div>
+		{% endif %}
+
+	</div>
+</section>
+
+{% endblock %}

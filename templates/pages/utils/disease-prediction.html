@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} - Disease Prediction{% endblock %}
+
+{% block content %}
+
+<section class="page-title bg-1">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="block text-center">
+					<span class="text-white">Select Your Symptoms and Get Quick Result</span>
+					<h1 class="text-capitalize mb-5 text-lg">Disease Prediction</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="container">
+	<h3 class="text-md text-center mb-3 mt-3">Select your symptoms</h3>
+
+	<form class="p-3" enctype="multipart/form-data" method="post">
+		<div class="row">
+			{% csrf_token %}
+			<div class="col-lg-6 col-md-6 col-sm-6">
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label>Symptom One</label>
+							{{ form.symptom1|add_class:"form-control" }}
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label>Symptom Two</label>
+							{{ form.symptom2|add_class:"form-control" }}
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label>Symptom Three</label>
+							{{ form.symptom3|add_class:"form-control" }}
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-lg-6 col-md-6 col-sm-6">
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label>Symptom Four</label>
+							{{ form.symptom4|add_class:"form-control" }}
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label>Symptom Five</label>
+							{{ form.symptom5|add_class:"form-control" }}
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label>Symptom Six</label>
+							{{ form.symptom6|add_class:"form-control" }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="text-center">
+			<button class="btn btn-main btn-round-full" type="submit">
+				Predict
+			</button>
+			<div class=" mt-5">
+				{% if disease %}
+				<h3 class="text-md text-center mb-3">Your Disease is: <span class="text-color-2">{{ disease }}</span>
+				</h3>
+				{% endif %}
+			</div>
+	</form>
+</section>
+
+{% endblock %}
